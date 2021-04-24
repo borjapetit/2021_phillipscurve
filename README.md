@@ -7,14 +7,7 @@ This repostory includes all the codes required to replicate the results in the p
 
 The model is solved it two steps. First, we use Fortran to solve for the steady state and to linearize the dynamic system. Then, we use the Kelin's complex QZ decomposition solution method to solve the model and compute the Impulse Response FUnction. 
 
-### Fortran codes
-
-### Matlab codes
-
-### Others
-
-
-## Compiling and running the codes
+## Compilation command
 
 
 To compìle the Fortran codes the command is:
@@ -34,6 +27,8 @@ You tend o use the following compilation flags:
 -fmax-stack-var-size=1000000
 ```
 
+## Running the codes
+
 The code offers 7 possibilities:
 1. Solve only the steady state
 2. Solve the steady state and the dynamics
@@ -41,7 +36,7 @@ The code offers 7 possibilities:
 4. Solve the dynamics for the 6 possible combinations of decision-making costs (with baseline inflation rate)
 5. Solve the dynamics for an inflation rate of -2%, -1%, 0%, +4% and +8%. The rate of 2% is the baseline inflation rate) and for the sticky version, the flexible -prices case, the flexible-wages case and the flexible prices and wages case.
 6.Solve the steady-state for all possible cases (different combinations of inflation rate and adjustment cost parameters)
-
+  
 | Adjustment cost / Inflation rate   | 2%   | -1%  |   0%  |   4%   |  8%  |  -2%   |  1% |
 |-----|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 | Baseline                     |   V10  |  V11  |  V12  |  V13  |  V14  |  V15  |  V16 |
