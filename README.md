@@ -4,7 +4,7 @@
 This repostory includes all the codes required to replicate the results in the paper **"Flattening of the Phillips curve with state-dependent prices and wages"**, by with [James Costain](https://sites.google.com/site/jimcostain/) (Banco de España), [Anton Nakov](https://sites.google.com/site/antonnakov/) (ECB and CEPR) and [Borja Petit](https://borjapetit.github.io) (CUNEF).
 
 The model is solved it two steps. First, we use Fortran to solve for the steady state and to linearize the dynamic system. Then, we use Matlab to implement the Kelin's complex QZ decomposition solution method and to compute the Impulse Response Functions.
-
+Matlab
 ## Structure of the codes
 
 **It is very important that you keep the same structure of folders and subfolders**
@@ -14,8 +14,8 @@ The model is solved it two steps. First, we use Fortran to solve for the steady 
 | Folder   | Description   |
 |-----|-----|
 | `../compiledfiles/` | This folder contains the `.mod` files produced at compilation |
-| `../figures/` | This folder contains the matlab codes that generate the figures of the paper |
-| `../matlab/` | This folder contains a number of matlab codes that are used to implement the Kelin's decomposition, and some other auxiliary functions |
+| `../figures/` | This folder contains the Matlab codes that generate the figures of the paper |
+| `../matlab/` | This folder contains a number of Matlab codes that are used to implement the Kelin's decomposition, and some other auxiliary functions |
 | `../tables/` | This folder contains a set of Matlab codes that produce the tables shown in the paper |
 | `../textfiles/` | This folder contains text files with data and the solution to the model |
 
@@ -108,7 +108,7 @@ Version V10, V20, V30, V40, V50, and V60_
 
 5. Solve for different inflation rates  
 _The code solves the steady-state and the dynamics for all possible inflation rates, and the basline level of noise parameters.  
-Version V10, V11, V12, V13, V14, V15 and V16._
+Versions V10, V11, V12, V13, V14, V15 and V16._
 
 6. Solve for all possible cases  
 _The code solves the steady-state and the dynamics for all possible combinations of noise parameters and inflation rates._
