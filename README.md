@@ -103,13 +103,19 @@ _The user is asked to specify which version to solve_
 _The user asked which algorithm to use for calibration: Nelder-Mead or a Newton-based algorithm_  
 
 4. Solve for different noise parameters  
-_The code solves the staeady-state and the dynamics for all the combinations of noise parameters and the baseline inflation rate. That is: version V10, V20, V30, V40, V50, and V60_
+_The code solves the steady-state and the dynamics for all the combinations of noise parameters and the baseline inflation rate.  
+Version V10, V20, V30, V40, V50, and V60_
 
 5. Solve for different inflation rates  
-_The code solves the staeady-state and the dynamics for all possible inflation rates, and the basline level of noise parameters. That is: version V10, V11, V12, V13, V14, V15 and V16._
+_The code solves the steady-state and the dynamics for all possible inflation rates, and the basline level of noise parameters.  
+Version V10, V11, V12, V13, V14, V15 and V16._
 
 6. Solve for all possible cases  
-_The code solves the staeady-state and the dynamics for all possible combinations of noise parameters and inflation rates._
+_The code solves the steady-state and the dynamics for all possible combinations of noise parameters and inflation rates._
 
 7. Solve for pre and post inflation rates  
-_The code solves the staeady-state and the dynamics for an inflation rate of 4.63% (US, 1980-2000) and 2.01% (US, 2000-2020). That is: versions V17 and V18_
+_The code solves the steady-state and the dynamics for an inflation rate of 4.63% (US, 1980-2000) and 2.01% (US, 2000-2020).  
+Versions V17 and V18_
+
+
+  
