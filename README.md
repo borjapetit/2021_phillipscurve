@@ -3,7 +3,7 @@
 
 This repostory includes all the codes required to replicate the results in the paper **"Flattening of the Phillips curve with state-dependent prices and wages"**, by with [James Costain](https://sites.google.com/site/jimcostain/) (Banco de España), [Anton Nakov](https://sites.google.com/site/antonnakov/) (ECB and CEPR) and [Borja Petit](https://borjapetit.github.io) (CUNEF).
 
-The model is solved it two steps. First, we use Fortran to solve for the steady state and to linearize the dynamic system. Then, we use Matlab to implement the Kelin's complex QZ decomposition solution method and to compute the Impulse Response Function.
+The model is solved it two steps. First, we use Fortran to solve for the steady state and to linearize the dynamic system. Then, we use Matlab to implement the Kelin's complex QZ decomposition solution method and to compute the Impulse Response Functions.
 
 ## Structure of the codes
 
