@@ -7,7 +7,7 @@
 close all; clear all; clc;
 
 % Working directory
-cd '/Users/borjapetit/Dropbox/projects/2016_lpw/code_public/codes/'
+cd ' %% Your Own Directory '
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ACTUAL DATA
