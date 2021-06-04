@@ -6,7 +6,7 @@
 clear all ; close all ; clc ; tic; format long
 
 % Working directory
-cd '/Users/borjapetit/Dropbox/projects/2016_lpw/code_public/codes/'
+cd ' %% Your Own Directory '
 
 sol_ss = importdata([pwd '/textfiles/_ss/V10_ss.txt'],' ',0);
 lambda = importdata([pwd '/textfiles/_ss/_V10_lambda_ss.txt'],' ',0);
