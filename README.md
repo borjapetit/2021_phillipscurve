@@ -12,7 +12,7 @@ The model is solved in two steps. First, we use Fortran to solve for the steady 
 #### List of folders
 
 | Folder   | Description   |
-|-----|-----|
+|:----|:----|
 | `../compiledfiles/` | This folder contains the `.mod` files produced at compilation |
 | `../figures/` | This folder contains the Matlab codes that generate the figures of the paper |
 | `../matlab/` | This folder contains a number of Matlab codes that are used to implement Klein's decomposition, and some other auxiliary functions |
@@ -24,7 +24,7 @@ The model is solved in two steps. First, we use Fortran to solve for the steady 
 (*) These files require the user to set the working directory.
 
 | Root  | File  | Description   |
-|-----|-----|-----|
+|:----|:----|:----|
 | `../` | `dynamics.f90` | This code generates computes the Jacobian of the dynamic system and stores it in `../textfiles/_dyn/Vxy_dyn.txt` where `x` and `y` refer to the specific version solved (see below)
 |  | `main.f90` | This code contains the execution of the program
 |  | `parameters.f90` (*) | This code contains the parameters of the model as well as some general-purpose functions
@@ -43,7 +43,7 @@ The model is solved in two steps. First, we use Fortran to solve for the steady 
 |  | `kleinsolve.m` | This code implements the Klein QZ decomposition algorithm
 |  | `parameters.m` | Defines some parameters that are used in other codes
 |  | `plot_irf.m` | Generate the figure with IRFs
-| `../tables/` | `table_4.m` | Generate Table 4 of the paper
+| `../tables/` | `table_4.m` (*) | Generate Table 4 of the paper
 |  | `table_5.m` (*) | Generate Table 6 of the paper
 |  | `table_7.m` (*) | Generate Table 7 of the paper
 | `../textfiles/` | `calibprams.txt` | Values of the calibrated parameters
