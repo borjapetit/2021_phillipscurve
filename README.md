@@ -117,3 +117,7 @@ _The code solves the steady-state and the dynamics for all possible combinations
 7. Solve for pre and post inflation rates  
 _The code solves the steady-state and the dynamics for an inflation rate of 4.63% (US, 1980-2000) and 2.01% (US, 2000-2020).  
 Versions V17 and V18_
+
+
+The steady-state results are stored in `../textfiles/_ss/Vxy_ss.txt` and the dynamics in `../textfiles/_ss/Vxy_dyn.txt`. The steady-state results include the equilibrium prices, the value functions for firms and workers and the distribution of prices and wages (if you solve the baseline version `V10` it also stores the policy functions for prices and wages changes). The dynamic results include the Jacobian of the dynamic system.
+
