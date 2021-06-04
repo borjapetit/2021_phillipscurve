@@ -6,7 +6,7 @@
 clear all ; close all ; clc ; tic; format long
 
 % Working directory
-cd '/Users/borjapetit/Dropbox/projects/2016_lpw/code_public/codes/'
+cd ' %% Your Own Directory '
 
 % Print figure - paper version (V1, V3, V5 and V6)
 irfsall = figure; set(irfsall ,'PaperSize',[30 15],'PaperPosition',[0 0 30 15])
