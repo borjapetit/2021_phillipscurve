@@ -6,7 +6,7 @@
 clear all ; close all ; clc ; tic; format long
 
 % Working directory
-cd '/Users/borjapetit/Dropbox/projects/2016_lpw/lpw/code/current/main'
+cd ' %% Your Own Directory '
 mypath = [pwd '/textfiles/'] ;
 
 % Define the versions you want to solve
