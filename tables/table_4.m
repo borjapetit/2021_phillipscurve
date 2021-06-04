@@ -6,7 +6,7 @@ clear all ; close all ; clc ; tic; format long
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Working directory
 
-cd '/Users/borjapetit/Dropbox/projects/2016_lpw/code_public/codes/'
+cd ' %% Your Own Directory '
 
 run('matlab/function/parameters.m');
 
