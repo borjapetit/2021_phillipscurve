@@ -27,7 +27,7 @@ The model is solved in two steps. First, we use Fortran to solve for the steady 
 |-----|-----|-----|
 | `../` | `dynamics.f90` | This code generates computes the Jacobian of the dynamic system and stores it in `../textfiles/_dyn/Vxy_dyn.txt` where `x` and `y` refer to the specific version solved (see below)
 |  | `main.f90` | This code contains the execution of the program
-|  | `parameters.f90` | This code contains the parameters of the model as well as some general-purpose functions
+|  | `parameters.f90` (*) | This code contains the parameters of the model as well as some general-purpose functions
 |  | `solution.f90` | This code solves the firms' and workers' problems and computes the invariant distribution of prices and wages
 |  | `toolkit.f90` | This code contains a set of general-purpose functions and subroutines, including optimization routines used in the code
 | `../figures/` | `fig_2.m` (*) | Generate figure 2 of the paper and figure D1 in the online appedix
@@ -55,8 +55,6 @@ The model is solved in two steps. First, we use Fortran to solve for the steady 
 
 ## Compilation command
 
-Before compiling the code, you need to add your working directory in the variable `path` defined in `parameters.f90`.
-
 To compile the Fortran codes the command is:
 
 ```
@@ -76,7 +74,7 @@ You should use the following compilation flags:
 The different versions of the model, combining different noise parameters and inflation rates, are name according to `Vxy` where `x` refers to the noise parameters and `y` to the inflation rate. In particular:
 
 | Adjustment cost / Inflation rate        | 2%     | -1%   | 0%    | 4%    | 8%    | -2%   | 1%    |
-|-----------------------------------------|:------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|:----------------------------------------|:------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 | Baseline                                |   V10  |  V11  |  V12  |  V13  |  V14  |  V15  |  V16  |
 | Semi-flexible prices and sticky wages   |   V20  |  V21  |  V22  |  V23  |  V24  |  V25  |  V26  |
 | Flexible prices and sticky wages        |   V30  |  V31  |  V32  |  V33  |  V34  |  V35  |  V36  |
@@ -89,7 +87,7 @@ This table includes all the versions that can be computed, which are a few more 
 Beyond this, we allow the inflation rate to take two different extra values to compute the Phillips curve slope presented in the paper. In particular:
 
 | Inflation rate        |       |
-|-----                  |:------:|
+|:----                  |:------:|
 | Inflation rate of 4.63% (US, 1980-2000)  |   V17  |
 | Inflation rate of 2.01% (US, 2000-2020)  |   V18  |
 
