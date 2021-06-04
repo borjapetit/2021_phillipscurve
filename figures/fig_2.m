@@ -5,7 +5,7 @@
 
 clear all ; close all ; clc ; tic; format long
 
-cd '/Users/borjapetit/Dropbox/projects/2016_lpw/code_public/codes/'
+cd ' %% Your Own Directory '
 mypath = [pwd '/textfiles/']   ;
 
 % Size parameters
