@@ -21,31 +21,30 @@ The model is solved in two steps. First, we use Fortran to solve for the steady 
 
 #### List of files
 
-(*) These files require the user to set the working directory.
-
 | Root  | File  | Description   |
 |:----|:----|:----|
 | `../` | `dynamics.f90` | This code generates computes the Jacobian of the dynamic system and stores it in `../textfiles/_dyn/Vxy_dyn.txt` where `x` and `y` refer to the specific version solved (see below)
 |  | `main.f90` | This code contains the execution of the program
-|  | `parameters.f90` (*) | This code contains the parameters of the model as well as some general-purpose functions
+|  | `parameters.f90` | This code contains the parameters of the model as well as some general-purpose functions
 |  | `solution.f90` | This code solves the firms' and workers' problems and computes the invariant distribution of prices and wages
 |  | `toolkit.f90` | This code contains a set of general-purpose functions and subroutines, including optimization routines used in the code
-| `../figures/` | `fig_2.m` (*) | Generate figure 2 of the paper and figure D1 in the online appedix
-|  | `fig_3.m` (*) | Generate figure 3 of the paper.
-|  | `fig_4.m` (*) | Generate figure 4 of the paper
-|  | `fig_5.m` (*) | Generate figure 5 of the paper
-|  | `fig_6.m` (*) | Generate figure 6 of the paper
-|  | `fig_7.m` (*) | Generate figure 7 and table 8 of the paper
-|  | `fig_8.m` (*) | Generate figure 8 of the paper
+| `../figures/` | `fig_2.m` | Generate figure 2 of the paper and figure D1 in the online appedix
+|  | `fig_3.m` | Generate figure 3 of the paper.
+|  | `fig_4.m` | Generate figure 4 of the paper
+|  | `fig_5.m` | Generate figure 5 of the paper
+|  | `fig_6.m` | Generate figure 6 of the paper
+|  | `fig_7.m` | Generate figure 7 and table 8 of the paper
+|  | `fig_8.m` | Generate figure 8 of the paper
 | `../matlab/` | `solve_dyn.m` (*) | This code reads the `.txt` files produced with Fortran and implements the Klein QZ decomposition to generate the IRFs
 |  | `extract_dyn.m` | Given a Jacobian matrix, this code fills the matrices to  configure the problem for Klein's QZ decomposition algorithm
 |  | `extract_ss.m` | Takes a vector with all the results from the steady-state and fill vectors and matrices
 |  | `kleinsolve.m` | This code implements the Klein QZ decomposition algorithm
 |  | `parameters.m` | Defines some parameters that are used in other codes
 |  | `plot_irf.m` | Generate the figure with IRFs
-| `../tables/` | `table_4.m` (*) | Generate Table 4 of the paper
-|  | `table_5.m` (*) | Generate Table 6 of the paper
-|  | `table_7.m` (*) | Generate Table 7 of the paper
+| `../tables/` | `table_4.m` | Generate Table 4 of the paper
+|  | `table_5.m` | Generate Table 5 of the paper
+|  | `table_6.m` | Generate Table 6 of the paper
+|  | `table_7.m` | Generate Table 7 of the paper
 | `../textfiles/` | `calibprams.txt` | Values of the calibrated parameters
 |  | `data_pc.mat` | Data used in section 4.2.3 |
 |  | `data_pdfprices.txt` | Empirical histogram of price changes |
