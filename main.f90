@@ -4,8 +4,9 @@
 ! TO SOLVE THE STEADY STATE, THE DYNAMICS AND TO CALIBRATE THE MODEL.
 ! ******************************************************************************
 
-! cd /Users/borjapetit/Desktop/MS20191456
-! gfortran -fopenmp -O3 -ffixed-line-length-150 -fmax-stack-var-size=1000000 -J $(pwd)/compiledfiles toolkit.f90 parameters.f90 solution.f90 dynamics.f90 main.f90 -o lpw
+! Compilation command:
+!   cd ..
+!   gfortran -fopenmp -O3 -ffixed-line-length-150 -fmax-stack-var-size=1000000 -J $(pwd)/compiledfiles toolkit.f90 parameters.f90 solution.f90 dynamics.f90 main.f90 -o lpw
 
 PROGRAM main
 USE omp_lib
