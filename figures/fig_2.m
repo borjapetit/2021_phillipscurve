@@ -231,8 +231,8 @@ subplot(4,2,8)
     hold off
 
 set(fig_hist,'PaperSize',[20 25],'PaperPosition',[0 0 20 25])
-savefig('figures/figs/fig_b1.fig')
-print(fig_hist,[pwd '/figures/pdfs/fig_b1.pdf'],'-dpdf')
+savefig('figures/figs/fig_appendix_d1.fig')
+print(fig_hist,[pwd '/figures/pdfs/fig_appendix_d1.pdf'],'-dpdf')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

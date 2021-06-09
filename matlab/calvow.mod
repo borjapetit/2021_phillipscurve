@@ -75,25 +75,25 @@ load V10_irf;
 
 IRF_empirical = [irf.consumption(2:@{IRF_periods}+1)' irf.pinflation(3:@{IRF_periods}+2)'];
 
-[fhat,x_opt_hat(:,1)] = csminwel(@IRF_matching_objective,x_start,H0,[],crit,nit,IRF_empirical,IRF_weighting);
+[fhat,x_opt_hat(:,1)] = csminwel(@calvo_matching,x_start,H0,[],crit,nit,IRF_empirical,IRF_weighting);
 
 load V12_irf;
 
 IRF_empirical = [irf.consumption(2:@{IRF_periods}+1)' irf.pinflation(3:@{IRF_periods}+2)'];
 
-[fhat,x_opt_hat(:,2)] = csminwel(@IRF_matching_objective,x_start,H0,[],crit,nit,IRF_empirical,IRF_weighting);
+[fhat,x_opt_hat(:,2)] = csminwel(@calvo_matching,x_start,H0,[],crit,nit,IRF_empirical,IRF_weighting);
 
 load V13_irf;
 
 IRF_empirical = [irf.consumption(2:@{IRF_periods}+1)' irf.pinflation(3:@{IRF_periods}+2)'];
 
-[fhat,x_opt_hat(:,3)] = csminwel(@IRF_matching_objective,x_start,H0,[],crit,nit,IRF_empirical,IRF_weighting);
+[fhat,x_opt_hat(:,3)] = csminwel(@calvo_matching,x_start,H0,[],crit,nit,IRF_empirical,IRF_weighting);
 
 load V14_irf;
 
 IRF_empirical = [irf.consumption(2:@{IRF_periods}+1)' irf.pinflation(3:@{IRF_periods}+2)'];
 
-[fhat,x_opt_hat(:,4)] = csminwel(@IRF_matching_objective,x_start,H0,[],crit,nit,IRF_empirical,IRF_weighting);
+[fhat,x_opt_hat(:,4)] = csminwel(@calvo_matching,x_start,H0,[],crit,nit,IRF_empirical,IRF_weighting);
 
 
 %disp(1-x_opt_hat')
