@@ -6,7 +6,7 @@ MODULE parameters
 IMPLICIT NONE
 
 ! Path to files  ----------------------------------------------------------------
-CHARACTER(LEN=100), PARAMETER :: path = "/Users/borjapetit/Desktop/MS20191456/"
+CHARACTER(LEN=100), PARAMETER :: path = ".."
 CHARACTER(LEN=13)             :: folder
 
 ! Program execution parameters -------------------------------------------------
