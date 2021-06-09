@@ -3,10 +3,10 @@
 % THIS CODE GENERATES THE FIGURE 4 IN THE PAPER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-clear all ; close all ; clc ; tic; format long
+clear all ; close all ; clc ; tic ; format long ; savepwd = pwd;
 
 % Working directory
-cd ' %% Your Own Directory '
+cd '..'
 
 % Size parameters
 run('matlab/parameters.m');
@@ -60,3 +60,5 @@ subplot(1,2,2)
 set(fig_hist,'PaperSize',[20 7],'PaperPosition',[0 0 20 7])
 savefig('figures/figs/fig_4.fig')
 print(fig_hist,[pwd '/figures/pdfs/fig_4.pdf'],'-dpdf')
+
+toc ; cd(savepwd)

@@ -1,12 +1,12 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% THIS CODE GENERATES THE FIGURE 8 IN THE PAPER
+% THIS CODE GENERATES THE FIGURE 6 IN THE PAPER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-clear all ; close all ; clc ; tic; format long
+clear all ; close all ; clc ; tic ; format long ; savepwd = pwd;
 
 % Working directory
-cd ' %% Your Own Directory '
+cd '..'
 
 % Print figure - paper version (V1, V3, V5 and V6)
 irfsall = figure; set(irfsall ,'PaperSize',[30 15],'PaperPosition',[0 0 30 15])
@@ -19,3 +19,5 @@ subplot(2,3,1); legend(' -2%','  0%' ,'  2%','  4%','  8%')
 savefig('figures/figs/fig_6.fig')
 print(irfsall,'figures/pdfs/fig_6','-dpdf')
 clear irfsall
+
+toc ; cd(savepwd)

@@ -1,5 +1,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 % Implements Klein's complex QZ decomposition solution method.
 %
 % Based on Klein's gauss program solve.src, 
@@ -31,6 +32,7 @@
 % Note: eig<1+eqcutoff is classified as stable.
 %   In theory, eqcutoff should be zero.
 %   For numerical purposes, may set eqcutoff infinitesimally nonzero.
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [F,P,stableeigs,unstableeigs] = kleinsolve(a,b,c,d,phiMAT,nk,eqcutoff)
@@ -57,7 +59,7 @@ save abcd a b c d; clear a b c d
 %   and Q and Z are unitary, which means Q*Q' = I, Z*Z' = I
 %   where prime denotes transpose (if real) or conjugate transpose (if complex).
 
-fprintf('      Start QZ decomposition (this takes 8.5 minutes)... ')
+fprintf('      Start QZ decomposition... ')
 
 [S,T,Q,Z] = qz(A,B);
 
@@ -103,7 +105,7 @@ fprintf(' OK: %0.1d seconds \n',floor(tocord));
 fprintf('          Number of States: %d    Number of Stable  : %d \n' , nw , length(stableeigs)   ) ;
 fprintf('          Number of Jumps : %d    Number of Unstable: %d \n' , nd , length(unstableeigs) ) ;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % NUMBER OF UNSTABLE EIGENVALUES SHOULD EQUAL nd:
 if (length(unstableeigs)<nd || length(stableeigs)<nw)
@@ -176,7 +178,7 @@ z22 = Z(nw+1:nv,nw+1:nv);
 tocbuild = toc - tocord - tocqz;
 fprintf(' OK: %0.1d seconds \n',floor(tocbuild));
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 fprintf('      Start z11 rank check ... ')
 
@@ -208,11 +210,11 @@ end
 tocz11 = toc - tocbuild - tocord - tocqz;
 fprintf('%0.1d seconds \n',floor(tocz11));
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 fprintf('      Start consistency checks ... ')
 
-% Relation between d_t and w_t: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Relation between d_t and w_t: 
 z11i = z11\eye(nw);
 F1comp = z21*z11i;
 F2comp = -(z22')\z12';
@@ -223,7 +225,7 @@ if (checkf >0.00001 )
     fprintf('\n          POSSIBLE ERROR: The two formulas for F give different answers! %d \n          ',checkf)
 end
 
-% Dynamics of w_t: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dynamics of w_t: 
 %   E_t w_t+1 = z11 E_t s_t+1 = z11*inv(Sss)*Tss*s_t = z11*inv(Sss)*Tss*inv(z11)*w_t
 Pcomp = z11*sdyn*z11i;
 
@@ -246,21 +248,22 @@ end
 F = real(F1comp);
 P = real(Pcomp);
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % COMPUTATION IS FINISHED.  Now check identities implied by the model.
 
 Pz = P(1:nz,:);
 Pk = P(nz+1:end,:);
 
 % KLEIN SETUP IS: a*E_t(x_t+1) + b*x_t + c*E_t(z_t+1) + d*z_t = 0
-%   starting from any arbitrary w_t=[z_t;k_t], which determines d_t, etc.
+% starting from any arbitrary w_t=[z_t;k_t], which determines d_t, etc.
 %
-%  Here E_t x_t+1 = [k_t+1; = [ Pk; * [z_t;    and x_t = [k_t; = [0 I; * [z_t; 
-%                    d_t+1]    F*P]    k_t]               d_t]     F ]    k_t]
-
-% Similarly, A*E_t(v_t+1) = B*v_t from arbitrary w_t=[z_t;k_t],
-%  but not from arbitrary v_t.
-
+% Here E_t x_t+1 = [k_t+1; = [ Pk; * [z_t;  and x_t = [k_t; = [0 I; * [z_t; 
+%                   d_t+1]    F*P]    k_t]             d_t]     F ]    k_t]
+%
+% Similarly, A*E_t(v_t+1) = B*v_t from arbitrary w_t=[z_t;k_t], but not
+% from arbitrary v_t.
+%
 % IF SOLUTION IS CORRECT THE FOLLOWING MATRICES SHOULD BE IDENTICALLY ZERO:
 
 load abcd; CHECKKLEINSOLVE1 = a*[Pk ; F*P]  + b*[[zeros(nk,nz) eye(nk)] ; F] + c*Pz + d*[eye(nz) zeros(nz,nk)]; clear a b c d;
@@ -281,7 +284,7 @@ else
     fprintf(' %0.1d seconds \n',floor(toccon));
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clear toccon tocz11 tocord tocqz tocbuild
 

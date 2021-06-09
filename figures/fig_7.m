@@ -1,13 +1,12 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% THIS FUNCTION TAKES THE MODEL GENERATED PHILLIPS CURVE AND THE EMPIRICAL
-% COUNTERPART AND GENERATE S ANUMBER OF PLOTS TO COMPARE THEM
+% THIS CODE GENERATES THE FIGURE 7 and TABLE 8 IN THE PAPER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-close all; clear all; clc;
+clear all ; close all ; clc ; tic ; format long ; savepwd = pwd;
 
 % Working directory
-cd ' %% Your Own Directory '
+cd '..'
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ACTUAL DATA
@@ -60,7 +59,8 @@ Fitpost_d = polyfit(ypost_d,pipost_d,1) ; pifitpost_d = Fitpost_d(2) + Fitpost_d
 Fitpre  = polyfit(ypre,pipre,1)   ; pifitpre  = Fitpre(2)  + Fitpre(1)*yfit;
 Fitpost = polyfit(ypost,pipost,1) ; pifitpost = Fitpost(2) + Fitpost(1)*yfit;
 
-fprintf('\n')
+diary 'tables/table_8.txt'
+
 fprintf('\n')
 fprintf('\n')
 fprintf('    TABLE 8. SLOPE OF THE PHILLIPS CURBE. DATA VS. MODEL')
@@ -75,6 +75,8 @@ fprintf('    ***************************************************** \n')
 fprintf('                    %% observed decline explained = %4.2f%% \n', 100*(Fitpost(1)/Fitpre(1)-1)/(Fitpost_d(1)/Fitpre_d(1)-1) )
 fprintf('      \n')
 fprintf('      \n')
+
+diary off
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -115,6 +117,8 @@ set(f1,'PaperSize',[20 14],'PaperPosition',[0 0 20 14])
 savefig('figures/figs/fig_7.fig')
 print(f1,'figures/pdfs/fig_7','-dpdf')
 
+toc ; cd(savepwd)
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [inf,outp,prices] = getseries(mod)
@@ -135,7 +139,7 @@ if mod=="post"
     load([pwd '/textfiles/_irfs/V18_irf.mat']) ;
     mu = 1.020054^(1/12) ;
 end
-run([pwd '/matlab/function/extract_ss.m']);
+run([pwd '/matlab/extract_ss.m']);
 
 rng(1);
 

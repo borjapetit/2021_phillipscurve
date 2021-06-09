@@ -1,15 +1,14 @@
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THIS CODE GENERATES TABLE 5 IN THE PAPER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-clear all ; close all ; clc ; tic; format long
+clear all ; close all ; clc ; tic ; format long ; savepwd = pwd;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Working directory
+cd '..'
 
-cd ' %% Your Own Directory '
-
-run('matlab/function/parameters.m');
+run('matlab/parameters.m');
 
 cases = [ 5 2 0 3 4 ] ; 
 
@@ -42,7 +41,7 @@ totalloss  = zeros(size(cases)) ;
 for i = 1:size(cases,2)
     
     sol_ss = importdata([pwd '/textfiles/_ss/V1' num2str(cases(i)) '_ss.txt'],' ',0);
-    run('matlab/function/extract_ss.m');
+    run('matlab/extract_ss.m');
 
     freq_p(i)     = stat.freq_p ;
     aveabsch_p(i) = stat.aveabsch_p ;
@@ -75,6 +74,8 @@ end
 
 clc ; 
 
+diary 'tables/table_5.txt'
+
 fprintf('\n')
 fprintf('\n')
 fprintf('    TABLE 5. EVALUATING THE MODEL WITH DIFFERENT TREND INFLATION RATES')
@@ -94,8 +95,8 @@ fprintf('    %% abs. changes < 2.5%%:     %6.2f  %6.2f  %6.2f  %6.2f  %6.2f    \
 fprintf('    ----------------------------------------------------------------- \n'             )
 fprintf('    Output losses (%%):         %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', losses_p   )
 fprintf('       Cost due errors (%%):    %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', errors_p   )
-fprintf('       Cost setting    (%%):    %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', setting_p  )
-fprintf('       Cost setting    (%%):    %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', timing_p   )
+fprintf('       Cost price setting (%%): %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', setting_p  )
+fprintf('       Cost timing choice (%%): %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', timing_p   )
 fprintf('    ***************************************************************** \n'             )
 fprintf('    WAGES                        Data   Base.      FP      FW    FPFW \n'             )
 fprintf('    ***************************************************************** \n'             )
@@ -110,12 +111,17 @@ fprintf('    %% abs. changes < 2.5%%:     %6.2f  %6.2f  %6.2f  %6.2f  %6.2f    \
 fprintf('    ----------------------------------------------------------------- \n'             )
 fprintf('    Output losses (%%):         %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', losses_w   )
 fprintf('       Cost due errors (%%):    %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', errors_w   )
-fprintf('       Cost setting    (%%):    %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', setting_w  )
-fprintf('       Cost setting    (%%):    %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', timing_w   )
+fprintf('       Cost wage setting (%%):  %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', setting_w  )
+fprintf('       Cost timing choice (%%): %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', timing_w   )
 fprintf('    ***************************************************************** \n'             )
 fprintf('    Total losses (%%):          %6.2f  %6.2f  %6.2f  %6.2f  %6.2f     \n', totalloss  )
 fprintf('    ***************************************************************** \n'             )
 fprintf('\n')
 fprintf('\n')
 fprintf('\n')
+
+diary off
+
+toc ; cd(savepwd)
+
 

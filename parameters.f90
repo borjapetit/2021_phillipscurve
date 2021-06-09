@@ -6,7 +6,7 @@ MODULE parameters
 IMPLICIT NONE
 
 ! Path to files  ----------------------------------------------------------------
-CHARACTER(LEN=100), PARAMETER :: path = "/Users/borjapetit/Dropbox/projects/2016_lpw/code_public/codes/"
+CHARACTER(LEN=100), PARAMETER :: path = "/Users/borjapetit/Desktop/MS20191456/"
 CHARACTER(LEN=13)             :: folder
 
 ! Program execution parameters -------------------------------------------------
@@ -71,7 +71,6 @@ REAL(rp) :: L(numw,numz)          ! Value function
 REAL(rp) :: Wdist(numw,numz)      ! Distribution
 REAL(rp) :: Pi_w(numw,numz,numw)  ! Next period's wage distribution
 REAL(rp) :: rho(numw,numz)        ! Probability of adjustment
-
 
 REAL(rp) :: BirthDist(numw,numz)
 REAL(rp) :: Xp(numw,numz)

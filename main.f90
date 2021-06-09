@@ -4,11 +4,14 @@
 ! TO SOLVE THE STEADY STATE, THE DYNAMICS AND TO CALIBRATE THE MODEL.
 ! ******************************************************************************
 
+! cd /Users/borjapetit/Desktop/MS20191456
+! gfortran -fopenmp -O3 -ffixed-line-length-150 -fmax-stack-var-size=1000000 -J $(pwd)/compiledfiles toolkit.f90 parameters.f90 solution.f90 dynamics.f90 main.f90 -o lpw
+
 PROGRAM main
 USE omp_lib
 USE parameters
 IMPLICIT NONE
-INTEGER           :: i,j,solmet,ip,is,iw,iz,solmet2
+INTEGER           :: i,j,solmet,ip,is,iw,iz,solmet2,cnoise(4),cinfl(5)
 REAL(rp)          :: time1,time0,timemp1,timemp0,kappa_pi0,kappa_w0
 REAL(rp)          :: PRICES1(3),ZEROS1(3),PARSMAX(7),PARSMIN(7)
 CHARACTER(LEN=8)  :: date
@@ -216,8 +219,12 @@ ELSEIF (solmet.EQ.5) THEN ; WRITE(vers0,'(I1)') 1
 
 ! Compute the steady state for all cases
 ELSEIF (solmet.EQ.6) THEN ;
-  DO i = 1,6 ; WRITE(vers0,'(I1)') i
-  DO j = 0,6 ; WRITE(vers1,'(I1)') j
+  cnoise = (/ 1, 3, 5, 6    /)
+  cinfl  = (/ 5, 2, 0, 3, 4 /)
+  DO i = 1,4 ; WRITE(vers0,'(I1)') cnoise(i)
+  DO j = 1,5 ; WRITE(vers1,'(I1)') cinfl(j)
+  !DO i = 1,6 ; WRITE(vers0,'(I1)') i
+  !DO j = 0,6 ; WRITE(vers1,'(I1)') j
     CALL SETKAPPAS(vers0,kappa_pi0,kappa_w0)
     CALL SETINFLATION(vers1)
     CALL PRINTVERSION("V"//vers0//vers1)
@@ -229,7 +236,7 @@ ELSEIF (solmet.EQ.6) THEN ;
 
 ! Compute the steady state and the jacobian for cases 7 and 8 (pre and post 2000)
 ELSEIF (solmet.EQ.7) THEN
-  vers0        = "1"         ! vers0 = 1: baseline cost parameters
+  vers0 = "1" ! vers0 = 1: baseline cost parameters
   CALL SETKAPPAS(vers0,kappa_pi0,kappa_w0)
   DO j=7,8 ; WRITE(vers1,'(I1)') j
     CALL SETINFLATION(vers1)

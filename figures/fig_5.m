@@ -3,10 +3,10 @@
 % THIS CODE GENERATES THE FIGURE 5 IN THE PAPER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-clear all ; close all ; clc ; tic; format long
+clear all ; close all ; clc ; tic ; format long ; savepwd = pwd;
 
 % Working directory
-cd ' %% Your Own Directory '
+cd '..'
 
 % Print figures for versions "base" "FP", "FW" and "FPFW"
 irfsall = figure; set(irfsall ,'PaperSize',[30 15],'PaperPosition',[0 0 30 15])
@@ -18,3 +18,5 @@ subplot(2,3,1); legend(' Baseline' ,' (FP) Flexi. prices' ,' (FW) Flexi. wages',
 savefig('figures/figs/fig_5.fig')
 print(irfsall,'figures/pdfs/fig_5','-dpdf')
 clear irfsall
+
+toc ; cd(savepwd)

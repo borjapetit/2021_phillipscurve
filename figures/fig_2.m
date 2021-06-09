@@ -3,9 +3,11 @@
 % THIS CODE GENERATES THE FIGURE 2 IN THE PAPER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-clear all ; close all ; clc ; tic; format long
+clear all ; close all ; clc ; tic ; format long ; savepwd = pwd;
 
-cd ' %% Your Own Directory '
+% Working directory
+cd '..'
+
 mypath = [pwd '/textfiles/']   ;
 
 % Size parameters
@@ -229,7 +231,11 @@ subplot(4,2,8)
     hold off
 
 set(fig_hist,'PaperSize',[20 25],'PaperPosition',[0 0 20 25])
-savefig('figures/_others/fig_b1.fig')
-print(fig_hist,[pwd '/figures/_others/fig_b1.pdf'],'-dpdf')
+savefig('figures/figs/fig_b1.fig')
+print(fig_hist,[pwd '/figures/pdfs/fig_b1.pdf'],'-dpdf')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+toc ; cd(savepwd)
+
+

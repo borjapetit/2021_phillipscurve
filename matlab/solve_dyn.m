@@ -1,16 +1,18 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% THIS CODE TAKES THE JACOBIAN COMPUTED WITH FORTRAN, AND COMPUTE THE IRFS
+% THIS CODE TAKES THE JACOBIAN COMPUTED WITH FORTRAN, AND COMPUTES THE IRFS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-clear all ; close all ; clc ; tic; format long
+clear all ; close all ; clc ; tic ; format long ; savepwd = pwd;
 
 % Working directory
-cd ' %% Your Own Directory '
-mypath = [pwd '/textfiles/'] ;
+cd '..'
+
+mypath  = [pwd '/textfiles/'] ;
+addpath([pwd '/matlab'])
 
 % Define the versions you want to solve
-cases = [17 18];
+cases = [ 10 12 13 14 15 30 32 33 34 35 50 52 53 54 55 60 62 63 64 65 ];
 
 % Write jacobian in .mat file
 fprintf('\n CONVERTING TEXT FILES INTO MAT FILES \n\n');
@@ -27,9 +29,11 @@ for version_kappas = cases
 end
 
 % Compute the IRFs
-for version_kappas = cases
-    solde_dyn_version(version_kappas,mypath);
-end
+%for version_kappas = cases
+%    solde_dyn_version(version_kappas,mypath);
+%end
+
+toc ; cd(savepwd)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -52,17 +56,16 @@ jacstep  = tol       ;
 run('parameters.m');
 
 % Define inflation rate
-if version_kappas>6
-    mu0 = mu ; version_inf = version_kappas - 10*floor(version_kappas/10);
-    if version_inf==1 ; mu = (mu0^12 - 0.03)^(1/12) ; end
-    if version_inf==2 ; mu = (mu0^12 - 0.02)^(1/12) ; end
-    if version_inf==3 ; mu = (mu0^12 + 0.02)^(1/12) ; end
-    if version_inf==4 ; mu = (mu0^12 + 0.06)^(1/12) ; end
-    if version_inf==5 ; mu = (mu0^12 - 0.04)^(1/12) ; end
-    if version_inf==6 ; mu = (mu0^12 - 0.01)^(1/12) ; end
-    if version_inf==7 ; mu =        1.046342^(1/12) ; end
-    if version_inf==8 ; mu =        1.020054^(1/12) ; end
-end
+mu0 = mu ; version_inf = version_kappas - 10*floor(version_kappas/10);
+if version_inf==0 ; mu = mu0                    ; end
+if version_inf==1 ; mu = (mu0^12 - 0.03)^(1/12) ; end
+if version_inf==2 ; mu = (mu0^12 - 0.02)^(1/12) ; end
+if version_inf==3 ; mu = (mu0^12 + 0.02)^(1/12) ; end
+if version_inf==4 ; mu = (mu0^12 + 0.06)^(1/12) ; end
+if version_inf==5 ; mu = (mu0^12 - 0.04)^(1/12) ; end
+if version_inf==6 ; mu = (mu0^12 - 0.01)^(1/12) ; end
+if version_inf==7 ; mu =        1.046342^(1/12) ; end
+if version_inf==8 ; mu =        1.020054^(1/12) ; end
 
 % Loading solution from Fortran
 fprintf(' Loading solution from Fortran...\n');
@@ -73,8 +76,8 @@ run('extract_ss.m');
 clear sol_ss
 
 % Extract histograms of price and wage changes (from data)
-pricehistdatap = importdata([pwd 'textfiles/data_pdfprices.txt'],' ',0) ;
-pricehistdataw = importdata([pwd 'textfiles/data_pdfwages.txt'],' ',0) ;
+pricehistdatap = importdata([pwd '/textfiles/data_pdfprices.txt'],' ',0) ;
+pricehistdataw = importdata([pwd '/textfiles/data_pdfwages.txt'],' ',0) ;
 
 % Extract dynamic solution
 eval(['load ' mypath '_dyn/V' num2str(version_kappas) '_dyn sol_dyn']);
@@ -119,7 +122,6 @@ tocdyn = toc;
 fprintf(' Elapsed time solving dynamics: %d min and %d secs \n\n',...
     floor(tocdyn/60),floor(tocdyn-60*floor(tocdyn/60)));
 clear tocjacobian tockelin tocdyn
-
 
 % Set parameters for IRF computation
 clear STATEHISTORY; clear JumpHistory; TT = 200;
@@ -175,7 +177,7 @@ fig_irf = figure;
 hold on ; linescolor = '-o' ; plot_irf
 set(fig_irf,'PaperSize',[3*fig_w 3*fig_h],'PaperPosition',[0 0 3*fig_w 3*fig_h])
 
-% Save IFR figure
+% Save IRF figure
 filename = [mypath '_irfs/_figs_irfs/V' num2str(version_kappas) '_irf.pdf'];
 if isfile(filename) ; delete(filename); end
 print(fig_irf,filename,'-dpdf')

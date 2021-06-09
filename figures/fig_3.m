@@ -3,10 +3,10 @@
 % THIS CODE GENERATES THE FIGURE 3 IN THE PAPER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-clear all ; close all ; clc ; tic; format long
+clear all ; close all ; clc ; tic ; format long ; savepwd = pwd;
 
 % Working directory
-cd ' %% Your Own Directory '
+cd '..'
 
 sol_ss = importdata([pwd '/textfiles/_ss/V10_ss.txt'],' ',0);
 lambda = importdata([pwd '/textfiles/_ss/_V10_lambda_ss.txt'],' ',0);
@@ -85,3 +85,5 @@ subplot(2,2,4)
 set(fig,'PaperSize',[20 15],'PaperPosition',[0 0 20 15])
 savefig([pwd '/figures/figs/fig_3.fig'])
 print(fig,[pwd '/figures/pdfs/fig_3.pdf'],'-dpdf')
+
+toc ; cd(savepwd)
