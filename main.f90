@@ -26,7 +26,12 @@ CHARACTER(LEN=1)  :: vers0,vers1
 CALL DATE_AND_TIME(DATE=date,TIME=time)
 
 ! Set working directory
-CALL CHDIR(TRIM(ADJUSTL(path))//"textfiles/")
+j = LEN(TRIM(ADJUSTL(path)))
+IF (path(j:j).EQ."/" .OR. path(j:j).EQ."\") THEN
+  CALL CHDIR(TRIM(ADJUSTL(path))//"textfiles/")
+ELSE
+  CALL CHDIR(TRIM(ADJUSTL(path))//"/textfiles/")
+END IF
 
 ! Start timing
 CALL CPU_TIME(time0)
