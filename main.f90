@@ -124,7 +124,7 @@ IF (solmet.EQ.1 .OR. solmet.EQ.2) THEN
   WRITE(*,'(A)',ADVANCE="YES") '    (5) Sticky prices and semi-lexible wages  '
   WRITE(*,'(A)',ADVANCE="YES") '    (6) Flexible prices and flexible wages    '
   WRITE(*,'(A)',ADVANCE="YES") '                                              '
-  WRITE(*,'(A)',ADVANCE="NO")  '    --> Your choice (1-7): ' ; READ (*,*) j
+  WRITE(*,'(A)',ADVANCE="NO")  '    --> Your choice (1-6): ' ; READ (*,*) j
   IF (j.LT.1 .AND. j.GT.6) THEN
     WRITE (*,'(A)',ADVANCE="NO") '    Incorrect version: from 1 to 6. '
     GOTO 9
@@ -145,7 +145,7 @@ IF (solmet.EQ.1 .OR. solmet.EQ.2) THEN
   WRITE(*,'(A)',ADVANCE="YES") '    (5) Inflation = -2%             '
   WRITE(*,'(A)',ADVANCE="YES") '    (6) Inflation = 1%              '
   WRITE(*,'(A)',ADVANCE="YES") '                                    '
-  WRITE(*,'(A)',ADVANCE="NO" ) '    --> Your choice (1-7): ' ; READ (*,*) j
+  WRITE(*,'(A)',ADVANCE="NO" ) '    --> Your choice (0-6): ' ; READ (*,*) j
   IF (j.LT.0 .OR. j.GT.6) THEN
     WRITE (*,'(A)',ADVANCE="NO") '    Incorrect version: from 0 to 6. ' ; GOTO 9
   END IF
