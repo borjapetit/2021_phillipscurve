@@ -634,8 +634,7 @@ SUBROUTINE SOLVEDYN(name)
 
   ! ----------------------------------------------------------------------------
   ! CONSTRUCT VARIABLES OF DYNAMIC SYSTEM
-  ! [ Pdist', Wdist', mlag', w', Inf', V', L', C', N', ...
-  !   Pdist , Wdist , mlag , w , Inf , V , L , C , N , Shocks', Shocks ]
+  ! [ Pdist , Wdist , mlag , w , Inf , V , L , C , N , Pdist', Wdist', mlag', w', Inf', V', L', C', N', Shocks', Shocks ]
 
   mbar = nu*(mu+mu0)*(cbar**gamma)/((mu+mu0)-one+delta)
   j = 0
