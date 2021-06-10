@@ -90,6 +90,7 @@ CALL SET_MOMENTS( )
 vers0 = " "   ! Model version - adjustment costs
 vers1 = " "   ! Model version - inflation rate
 
+! **************************************
 ! Ask what to do
 WRITE(*,'(A)') '                                                 '
 WRITE(*,'(A)') '  What do you want to do?                        '
@@ -104,16 +105,15 @@ WRITE(*,'(A)') '    (7) Solve for pre and post inflation rates   '
 WRITE(*,'(A)') '                                                 '
 WRITE(*,'(A)',ADVANCE="NO") '    --> Your choice (1-7): ' ; READ (*,*) solmet
 
+! **************************************
 ! Ask again if incorrect choice
 IF (solmet.LT.1 .AND. solmet.GT.7) THEN
   WRITE(*,'(A)',ADVANCE="NO") '    Incorrect choice: from 1 to 7. ' ; GOTO 9
 END IF
 
-! If solving steady state and/or dynamics, choose adjustment costs and inflation
-IF (solmet.EQ.1 .OR. solmet.EQ.2) THEN
-
-  ! Choose adjustment costs
-  vers0 = " "
+! **************************************
+! If solving steady state and/or dynamics, choose adjustment costs
+IF (solmet.EQ.1 .OR. solmet.EQ.2) THEN ; vers0 = " "
   WRITE(*,'(A)',ADVANCE="YES") '                                              '
   WRITE(*,'(A)',ADVANCE="YES") '  Which version?                              '
   WRITE(*,'(A)',ADVANCE="YES") '                                              '
@@ -131,9 +131,11 @@ IF (solmet.EQ.1 .OR. solmet.EQ.2) THEN
   END IF
   WRITE(vers0,'(I1)') j
   CALL SETKAPPAS(vers0,kappa_pi0,kappa_w0)
+END IF
 
-  ! Choose inflation rate
-  vers1 = " "
+! **************************************
+! If solving steady state and/or dynamics, choose inflation
+IF (solmet.EQ.1 .OR. solmet.EQ.2) THEN ; vers1 = " "
   WRITE(*,'(A)',ADVANCE="YES") '                                    '
   WRITE(*,'(A)',ADVANCE="YES") '  Which inflation rate?             '
   WRITE(*,'(A)',ADVANCE="YES") '                                    '
@@ -151,11 +153,11 @@ IF (solmet.EQ.1 .OR. solmet.EQ.2) THEN
   END IF
   WRITE(vers1,'(I1)') j
   CALL SETINFLATION(vers1)
-
 END IF
 
+! **************************************
+! If solving more than one version, choose whether to solve only steady-state or both steady-state and dynamics
 IF (solmet.EQ.4 .OR. solmet.EQ.5 .OR. solmet.EQ.6) THEN
-
   WRITE(*,'(A)',ADVANCE="YES") '  What to solve?                   '
   WRITE(*,'(A)',ADVANCE="YES") '                                   '
   WRITE(*,'(A)',ADVANCE="YES") '    (1) Steady-state               '
@@ -166,37 +168,38 @@ IF (solmet.EQ.4 .OR. solmet.EQ.5 .OR. solmet.EQ.6) THEN
     WRITE (*,'(A)',ADVANCE="NO") '    Incorrect choice: either 1 or 2. '
     GOTO 9
   END IF
-
 END IF
 
-
-WRITE(*,'(A)') '  '
-
+PRINT * , '  '
 PRINT * , ' **************************************************************** '
 PRINT * , '  '
 
 ! ******************************************************************************
 ! IMPLEMENT DESIRED SOLUTION
 
-! Solve steady state for given version
+! **************************************
+! OPTION 1: Solve steady state for given version
 IF (solmet.eq.1) THEN
 
   CALL PRINTVERSION("V"//vers0//vers1)
   CALL SOLVESTEADY("V"//vers0//vers1,2)
 
-! Compute Jacobian for given version
+! **************************************
+! OPTION 2: Solve steady state and dynamics for given version
 ELSE IF (solmet.eq.2) THEN
 
   CALL PRINTVERSION("V"//vers0//vers1)
   CALL SOLVEDYN("V"//vers0//vers1)
 
-! Calibrate the parameters
+! **************************************
+! OPTION 3: Calibrate the parameters
 ELSE IF (solmet.eq.3) THEN
 
   CALL PRINTVERSION("VC0")
   CALL CALIBRATE( )
 
-! Compute the steady state and the jacobian for the different values of the noise parameters
+! **************************************
+! OPTION 4: Compute the steady-state and dynamics for the different values of the noise parameters
 ELSEIF (solmet.EQ.4) THEN ; WRITE(vers1,'(I1)') 0
   DO j=1,6 ; WRITE(vers0,'(I1)') j
     CALL SETKAPPAS(vers0,kappa_pi0,kappa_w0)
@@ -207,7 +210,8 @@ ELSEIF (solmet.EQ.4) THEN ; WRITE(vers1,'(I1)') 0
   END DO
   GOTO 9
 
-! Compute the steady state and the jacobian for different values of the inflation rate
+! **************************************
+! OPTION 5: Compute the steady-state and dynamics for different values of the inflation rate
 ELSEIF (solmet.EQ.5) THEN ; WRITE(vers0,'(I1)') 1
   DO j = 0,6 ; WRITE(vers1,'(I1)') j
     CALL SETKAPPAS(vers0,kappa_pi0,kappa_w0)
@@ -218,7 +222,8 @@ ELSEIF (solmet.EQ.5) THEN ; WRITE(vers0,'(I1)') 1
   END DO
   GOTO 9
 
-! Compute the steady state for all cases
+! **************************************
+! OPTION 6: Compute the steady state for all cases
 ELSEIF (solmet.EQ.6) THEN ;
   cnoise = (/ 1, 3, 5, 6    /)
   cinfl  = (/ 5, 2, 0, 3, 4 /)
@@ -235,7 +240,8 @@ ELSEIF (solmet.EQ.6) THEN ;
   END DO
   GOTO 9
 
-! Compute the steady state and the jacobian for cases 7 and 8 (pre and post 2000)
+! **************************************
+! OPTION 7: Compute the steady state and the jacobian for cases 7 and 8 (pre and post 2000)
 ELSEIF (solmet.EQ.7) THEN
   vers0 = "1" ! vers0 = 1: baseline cost parameters
   CALL SETKAPPAS(vers0,kappa_pi0,kappa_w0)
@@ -259,23 +265,21 @@ PRINT ('(A2,A7,F12.10)'), '  ' , 'nbar   ' , nbar
 PRINT ('(A2,A7,F12.10)'), '  ' , 'wbar   ' , wbar
 PRINT * , '  '
 PRINT ('(A2,60(A1))'     ) , '  ', ('-',j=1,46)
-PRINT ('(A2,A15,A14,A3,A14)' ) , '  ', '  ','      Prices  ', '  |', '      Wages   '
-PRINT ('(A2,A15,2(A7,A7,A3))') , '  ', ' ','   Data','  Model', '  |', '   Data',' Model'
+PRINT ('(A2,A15,A14,A3,A14)' ) , ' ', ' ', '      Prices  '   , '  |', '      Wages   '
+PRINT ('(A2,A15,2(A7,A7,A3))') , ' ', ' ', '   Data','  Model', '  |', '   Data',' Model'
 PRINT ('(A2,60(A1))'     ) , '  ', ('-',j=1,46)
 DO j=1,9
-  PRINT ('(A2,A15,2(F7.2,F7.2,A3))') , '  ' , MOMPRINTNAME(j) , &
-  MOMPRINTDATA(j)   , MOMPRINTMODEL(j) , '  |' , &
-  MOMPRINTDATA(j+19) , MOMPRINTMODEL(j+19)
+  PRINT ('(A2,A15,2(F7.2,F7.2,A3))') , '  ' ,&
+  MOMPRINTNAME(j),MOMPRINTDATA(j),MOMPRINTMODEL(j),'  |' ,MOMPRINTDATA(j+19),MOMPRINTMODEL(j+19)
 END DO
 PRINT ('(A2,60(A1))'     ) , '  ', ('-',j=1,46)
 DO j=10,13
-  PRINT ('(A2,A15,2(A7,F7.2,A3))') , '  ' , MOMPRINTNAME(j) , &
-  '   -- ' , MOMPRINTMODEL(j) , '  |' , &
-  '   -- ' , MOMPRINTMODEL(j+19)
+  PRINT ('(A2,A15,2(A7,F7.2,A3))') , '  ' ,&
+  MOMPRINTNAME(j),'   -- ',MOMPRINTMODEL(j), '  |' ,'   -- ' ,MOMPRINTMODEL(j+19)
 END DO
 PRINT ('(A2,60(A1))'     ) , '  ', ('-',j=1,46)
-PRINT ('(A2,A15,2(A7,F7.2,A3))') , '  ' , MOMPRINTNAME(14) , &
-  '   -- ' , MOMPRINTMODEL(14) , '  |'
+PRINT ('(A2,A15,2(A7,F7.2,A3))') , '  ' ,&
+  MOMPRINTNAME(14),'   -- ',MOMPRINTMODEL(14),'  |'
 PRINT ('(A2,60(A1))'     ) , '  ', ('-',j=1,32)
 PRINT * , '  '
 PRINT *, ' **************************************************************** '
