@@ -8,16 +8,16 @@ clear all ; close all ; clc ; tic ; format long ; savepwd = pwd;
 % Working directory
 cd '..'
 
-mypath  = [pwd '/textfiles/'] ;
+mypath = [pwd '/textfiles/'] ;
 addpath([pwd '/matlab'])
 
 % Define the versions you want to solve
-cases = [ 10 12 13 14 15 30 32 33 34 35 50 52 53 54 55 60 62 63 64 65 ];
+cases = [ 10 ] ; %12 13 14 15 30 32 33 34 35 50 52 53 54 55 60 62 63 64 65 ];
 
 % Write jacobian in .mat file
 fprintf('\n CONVERTING TEXT FILES INTO MAT FILES \n\n');
 for version_kappas = cases
-    fprintf(' Converting version %d\n',version_kappas);
+    fprintf(' Converting version %d\n',version_kappas) ;
     filetxt = [mypath '_dyn/V' num2str(version_kappas) '_dyn.txt'] ;
     filemat = [mypath '_dyn/V' num2str(version_kappas) '_dyn.mat'] ;
     if isfile(filetxt)
@@ -29,9 +29,9 @@ for version_kappas = cases
 end
 
 % Compute the IRFs
-%for version_kappas = cases
-%    solde_dyn_version(version_kappas,mypath);
-%end
+for version_kappas = cases
+    solde_dyn_version(version_kappas,mypath);
+end
 
 toc ; cd(savepwd)
 
@@ -43,6 +43,13 @@ close all ; tic ;
 
 fprintf('\n DYNAMICS OF VERSION %d - STARTED AT %s\n\n',version_kappas,datetime('now','Format','HH:mm'));
 
+% Files with solutions
+filess   = [pwd  '/textfiles/_ss/V' num2str(version_kappas) '_ss.txt']  ;
+filedyn  = [pwd '/textfiles/_dyn/V' num2str(version_kappas) '_dyn.mat'] ;
+
+% Model parameters
+run('parameters.m');
+
 % Figure size parameters
 fig_w = 10.0 ;
 fig_h = 4.00 ;
@@ -51,9 +58,6 @@ fig_h = 4.00 ;
 tol      = sqrt(eps) ;
 eqcutoff = tol*1000  ;
 jacstep  = tol       ;
-
-% Model parameters
-run('parameters.m');
 
 % Define inflation rate
 mu0 = mu ; version_inf = version_kappas - 10*floor(version_kappas/10);
@@ -67,12 +71,14 @@ if version_inf==6 ; mu = (mu0^12 - 0.01)^(1/12) ; end
 if version_inf==7 ; mu =        1.046342^(1/12) ; end
 if version_inf==8 ; mu =        1.020054^(1/12) ; end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Loading solution from Fortran
 fprintf(' Loading solution from Fortran...\n');
 
 % Extract steady-state solution
-sol_ss = importdata([mypath '_ss/V' num2str(version_kappas) '_ss.txt'],' ',0);
-run('extract_ss.m');
+sol_ss  = importdata(filess) ;
+run('extract_ss.m') ;
 clear sol_ss
 
 % Extract histograms of price and wage changes (from data)
@@ -80,9 +86,11 @@ pricehistdatap = importdata([pwd '/textfiles/data_pdfprices.txt'],' ',0) ;
 pricehistdataw = importdata([pwd '/textfiles/data_pdfwages.txt'],' ',0) ;
 
 % Extract dynamic solution
-eval(['load ' mypath '_dyn/V' num2str(version_kappas) '_dyn sol_dyn']);
-run('extract_dyn.m');
+sol_dyn = importdata(filedyn) ;
+run('extract_dyn.m') ;
 clear sol_dyn
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Plot histogram of price/wage changes
 fprintf(' Printing histograms... \n');
