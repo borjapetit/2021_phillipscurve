@@ -619,7 +619,7 @@ SUBROUTINE SOLVEDYN(name)
   IMPLICIT NONE
 
   CHARACTER(LEN=3) , INTENT(IN) :: name
-  INTEGER                       :: i,j,ip,is
+  INTEGER                       :: i,j,ip,is,j2
   INTEGER , PARAMETER           :: NUPV = nump*nums
   INTEGER , PARAMETER           :: NUWL = numw*numz
   INTEGER , PARAMETER           :: NUWZ = 5
@@ -707,7 +707,9 @@ SUBROUTINE SOLVEDYN(name)
     XVEC(j) = XVEC0(j) + jacstep*MAX(one,ABS(XVEC(j)))
     RESID1  = DYNSYS(XVEC)
     RESIDJ  = (RESID1 - RESID0)/(XVEC(j)-XVEC0(j))
-    WRITE(1,*) RESIDJ(:)
+    DO j2=1,NUMR
+      WRITE(1,*) RESIDJ(j2)
+    END DO
     IF (j.eq.NUMV) THEN
       WRITE(*,'(A)',ADVANCE="YES") ' Done '
       WRITE(*,'(A)',ADVANCE="NO") '    Shocking tomorrow´s variables... '
