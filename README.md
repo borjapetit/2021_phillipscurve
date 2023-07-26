@@ -10,10 +10,6 @@ To use the codes, you need to download the full repository, keeping the **same f
 Before replicating the results, have a look at the [README file](https://github.com/borjapetit/costainnakovpetit2021/blob/main/README.pdf).<br>
 If you find any error or have a suggestion, do not hesitate to [contact](mailto:bpetit@cunef.edu) us.
 
+_This code is distributed under the [MIT Licence](LICENSE)_
 
-
-
-
-
-
- <br>
+<br>
